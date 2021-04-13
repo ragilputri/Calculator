@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kalkulator</title>
+
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <br>
+    <h1 align="center">My Calculator</h1>
+    <br>
+
+    <main class="container">
+
+        <div align="center">
+            <input type="text" class="form-control input-lg">
+        </div>
+
+        <div align="center">
+            <button class="btn btn-lg btn-light btn-num" data-val="7">7</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="8">8</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="9">9</button>
+            <button class="btn btn-lg btn-light btn-act" data-val=" / ">&divide;</button>
+        </div>
+
+        <div align="center">
+            <button class="btn btn-lg btn-light btn-num" data-val="4">4</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="5">5</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="6">6</button>
+            <button class="btn btn-lg btn-light btn-act" data-val=" * ">&times;</button>    
+        </div>
+
+        <div align="center">
+            <button class="btn btn-lg btn-light btn-num" data-val="1">1</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="2">2</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="3">3</button>
+            <button class="btn btn-lg btn-light btn-act" data-val=" - ">-</button>
+        </div>
+
+        <div align="center">
+            <button class="btn btn-lg btn-warning btn-act">CLEAR</button>
+            <button class="btn btn-lg btn-light btn-num" data-val="0">0</button>
+            <button class="btn btn-lg btn-success btn-act">=</button>
+            <button class="btn btn-lg btn-light btn-act" data-val=" + ">+</button>
+        </div>
+
+    </main>
+
+
+    <script src="jquery-3.1.1.js"></script>
+    <script src="popper.js"></script>
+    <script src="bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.btn-light').click(function(){
+
+                if ($('input').hasClass('needClear')) {
+                    if ($(this).hasClass('btn-num')) {
+                        $('input').val('');
+                        $('input').removeClass('needClear')
+                    }
+                    if ($(this).hasClass('btn-act')) {
+                        $('input').removeClass('needClear')
+                    }
+                }
+
+                var current_val = $('input').val();
+                var val = $(this).data('val');
+                $('input').val(current_val+val);
+            });
+
+            $('.btn-warning').click(function(){
+                $('input').val('');
+            }); 
+
+            $('.btn-success').click(function(){
+
+                var val = $('input').val().split(" "); 
+                var result = 'ERROR';
+
+                if (val[1] == '/') {
+                    result = parseInt(val[0]) / parseInt(val[2]);
+                }
+
+                if (val[1] == '*') {
+                    result = parseInt(val[0]) * parseInt(val[2]);
+                }
+
+                if (val[1] == '-') {
+                    result = parseInt(val[0]) - parseInt(val[2]);
+                }
+
+                if (val[1] == '+') {
+                    result = parseInt(val[0]) + parseInt(val[2]);
+                }
+
+                $('input').val(result.toLocaleString());
+                $('input').addClass('needClear');
+
+            }); 
+
+        });
+    </script>
+    
+</body>
+</html>
